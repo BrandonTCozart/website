@@ -1,0 +1,62 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    background-color: #f0ead69a;
+    height: 100vh;
+    width: 100vw; /* Makes the black background sapn the whole website */
+    display: flex; /*Without this the gif box will be rigid and will not move where I want it to*/
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.gifTextBox{
+    flex-wrap: wrap;
+    background:url(./images/temp.gif);
+    background-size: 650px 200px;
+    font-size: 100px;
+    text-align: center;
+
+    font-family: 'Agency FB', sans-serif;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 100%;
+    padding: 300px 0px;
+    box-sizing: border-box;
+    background: rgba(0,0, 0, 0);
+}
+
+.navBar{
+    padding: 22px 20px;
+    height: 80px;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+ul{
+    list-style: none;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+.socialIcons{
+    color: black;
+    font-size: 30px;
+}
