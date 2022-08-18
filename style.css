@@ -68,13 +68,12 @@ span{
     height: 300px;
     display: flex;
     font-family:'Agency FB', sans-serif;
-
     font-size: 25px;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 100px;
-    background:url(./images/coffeShop.jpg);
+    background:url(./images/coffeShop.jpg); /*Image behind the introduction text*/
     background-size:cover;
     margin-left: 20%;
     margin-right: 20%;
@@ -82,4 +81,6 @@ span{
 
 .text{
     color: white;
+    margin-left: 10%;
+    margin-right: 10%;
 }
