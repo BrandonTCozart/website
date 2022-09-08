@@ -100,6 +100,8 @@ span{
     margin-left: 10%;
     margin-right: 10%;
     grid-template-columns: 1fr 1fr 1fr; /*33.33% 33.33% 33.33%*/
+    border-style: solid;
+    border-color: #ABA992;
 }
 
 .project1{
@@ -188,10 +190,27 @@ span{
     align-items: center;
     justify-content: center;
 
+    border-style: solid;
+
 }
 
 .contact{
     margin-top: 200px;
     display: flex;
     justify-content: center;
+}
+
+.repoCount{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    font-family:'Agency FB', sans-serif;
+    font-size: 28px;
+}
+
+#repositoryCount{
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+
 }
