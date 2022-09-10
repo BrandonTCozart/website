@@ -55,7 +55,7 @@ a{
     color: black;
 }
 .socialIcons{
-    color: black;
+    color: white;
     font-size: 30px;
 }
 
@@ -70,13 +70,14 @@ span{
     font-family:'Agency FB', sans-serif;
     font-size: 25px;
     align-items: center;
+    text-align: center;
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 50px;
-    background:url(./images/coffeShop.jpg); /*Image behind the introduction text*/
-    background-size:cover;
-    /*margin-left: 20%;
-    margin-right: 20%;*/
+    background:url(./images/eno2.JPG); /*Image behind the introduction text*/
+    background-size: cover;
+    border-style: solid;
+    border-color: #232630;
 }
 
 .text{
@@ -94,14 +95,14 @@ span{
 }
 
 .projectContainer{
-    background:  #ABA992;
+    background:  #aba992;
     margin-bottom: 100px;
     display: grid;
     margin-left: 10%;
     margin-right: 10%;
     grid-template-columns: 1fr 1fr 1fr; /*33.33% 33.33% 33.33%*/
     border-style: solid;
-    border-color: #ABA992;
+    border-color: #232630;
 }
 
 .project1{
@@ -112,10 +113,11 @@ span{
     border-style: solid;
     font-family:'Agency FB', sans-serif;
     transition: 1s;
+    background-color: #858371;
 }
 
 .project1-image{
-    background: url(./images/iftagif.gif);
+    background: url(./images/phonescan.gif);
     background-size: cover;
     width: 100%;
     height: 50%;
@@ -136,11 +138,12 @@ span{
     border-style: solid;
     font-family:'Agency FB', sans-serif;
     transition: 1s;
+    background-color: #858371;
 }
 
 .project2-image{
-    background: url(./images/NOTE\ T.png);
-    background-size: cover;
+    background: url(./images/phonetext.gif);
+    background-size: contain;
     background-position: center;
     width: 100%;
     height: 50%;
@@ -161,10 +164,11 @@ span{
     border-style: solid;
     font-family:'Agency FB', sans-serif;
     transition: 1s;
+    background-color: #858371;
 }
 
 .project3-image{
-    background: url(./images/graypallet.png);
+    background: url(./images/facescan.gif);
     background-size: cover;
     width: 100%;
     height: 50%;
@@ -188,9 +192,12 @@ span{
 
     display: flex;
     align-items: center;
+    text-align: center;
+    color: white;
     justify-content: center;
 
     border-style: solid;
+    border-color: #232630;
 
 }
 
@@ -211,6 +218,6 @@ span{
 #repositoryCount{
     display: flex;
     justify-content: center;
-    font-size: 28px;
+    font-size: 28px;}
 
-}
+
