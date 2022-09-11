@@ -12,7 +12,7 @@ function sleep(ms){
 
 window.onload = async function() {
 
-    const goal = new URL('https://api.github.com/users/braintoobig1/repos');
+    const goal = new URL('https://api.github.com/users/brandontcozart/repos');
     const response = await fetch(goal);
     const data = await response.json();
 
