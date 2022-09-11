@@ -200,6 +200,7 @@ span{
     align-items: center;
     text-align: center;
     color: white;
+    font-weight: bold;
     justify-content: center;
 
     border-style: solid;
@@ -224,6 +225,7 @@ span{
 #repositoryCount{
     display: flex;
     justify-content: center;
-    font-size: 28px;}
+    font-size: 28px;
+}
 
 
