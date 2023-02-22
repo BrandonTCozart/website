@@ -100,9 +100,10 @@ span{
     display: grid;
     margin-left: 10%;
     margin-right: 10%;
-    grid-template-columns: 1fr 1fr 1fr; /*33.33% 33.33% 33.33%*/
+    grid-template-columns: 1fr 1fr; /*33.33% 33.33% 33.33%*/
     border-style: solid;
     border-color: #232630;
+    width: fit-content;
 }
 
 .project1{
