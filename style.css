@@ -39,7 +39,7 @@ body{
 #self-picture{
     height: 200px;
     width: 200px;
-    background:url(./images/computerMe.PNG);
+    background:url(./images/computerMe.png);
     background-size: cover;
     border-style: solid;
     border-color: #232630;
