@@ -1,114 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <title>Drive API Quickstart</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <p>Drive API Quickstart</p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
-    <link rel="stylesheet" href="./style.css">
-    <script src="jquery-3.6.1.min.js"></script>
-</head>
+    <pre id="content" style="white-space: pre-wrap;"></pre>
 
-<body>
-    <div class="header-container">
+    <script type="text/javascript">
+      /* exported gapiLoaded */
+      /* exported gisLoaded */
+      /* exported handleAuthClick */
+      /* exported handleSignoutClick */
 
-        <div class="gifTextBox">
-            Brandon Cozart <div id="dev">Dev</div>
-        </div>
-        
-    </div>
+      // TODO(developer): Set to client ID and API key from the Developer Console
+      const CLIENT_ID = '941814250597-hlf4k084up839jc3os6qk0p8ds4odpk9.apps.googleusercontent.com';
+      const API_KEY = 'AIzaSyBVSXGKQAFnlnW0kUW7j6fqDxPrZzwEy3E';
 
-    <div id="self-picture">   
-    </div>
+      // Discovery doc URL for APIs used by the quickstart
+      const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
 
-    <div id="intro-box">
-        <p id="intro-box-text">
-            Hi there! My name is Brandon Cozart and 
-            I'm from Durham, North Carolina. I graduated 
-            from the University of North Carolina at Charlotte 
-            with a Bachelor's degree in Computer Science. 
-            Over the years, I've gained experience in Android 
-            development as well as full-stack .NET development.
-             I'm always eager to learn new things and take on 
-             a good challenge.
-        </p>
-    </div>
-    <button id="transcript-button"> Resume</button>
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      const SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
 
-    <div id="table-container">
+      let tokenClient;
+      let gapiInited = false;
+      let gisInited = false;
 
-        <div id="table-header">
-            <h2>Recent Work</h2>
-        </div>
+      document.getElementById('authorize_button').style.visibility = 'hidden';
+      document.getElementById('signout_button').style.visibility = 'hidden';
 
-        <table id="project-table">
-            <thead>
-                <tr>
-                    <th> Title </th> 
-                    <th> Description </th>
-                    <th> Coded In </th>
-                    <th> Created Date </th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
+      /**
+       * Callback after api.js is loaded.
+       */
+      function gapiLoaded() {
+        gapi.load('client', initializeGapiClient);
+      }
 
-            </tbody>
-        </table>
-    </div>
+      /**
+       * Callback after the API client is loaded. Loads the
+       * discovery doc to initialize the API.
+       */
+      async function initializeGapiClient() {
+        await gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: [DISCOVERY_DOC],
+        });
+        gapiInited = true;
+        maybeEnableButtons();
+      }
 
-    <div id="reuseable-modal" class="hide">
-        <div id="modal-content">
-            <button id="modal-close">✖</button>
-            
-            <iframe src="./Resume 2023.pdf" width="100%" height="500px"></iframe>
-            
+      /**
+       * Callback after Google Identity Services are loaded.
+       */
+      function gisLoaded() {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: '', // defined later
+        });
+        gisInited = true;
+        maybeEnableButtons();
+      }
 
-        </div>
-    </div>
+      /**
+       * Enables user interaction after all libraries are loaded.
+       */
+      function maybeEnableButtons() {
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+        }
+      }
 
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick() {
+        tokenClient.callback = async (resp) => {
+          if (resp.error !== undefined) {
+            throw (resp);
+          }
+          document.getElementById('signout_button').style.visibility = 'visible';
+          document.getElementById('authorize_button').innerText = 'Refresh';
+          await listFiles();
+        };
 
+        if (gapi.client.getToken() === null) {
+          // Prompt the user to select a Google Account and ask for consent to share their data
+          // when establishing a new session.
+          tokenClient.requestAccessToken({prompt: 'consent'});
+        } else {
+          // Skip display of account chooser and consent dialog for an existing session.
+          tokenClient.requestAccessToken({prompt: ''});
+        }
+      }
 
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick() {
+        const token = gapi.client.getToken();
+        if (token !== null) {
+          google.accounts.oauth2.revoke(token.access_token);
+          gapi.client.setToken('');
+          document.getElementById('content').innerText = '';
+          document.getElementById('authorize_button').innerText = 'Authorize';
+          document.getElementById('signout_button').style.visibility = 'hidden';
+        }
+      }
 
-    <nav>
-        <div class="navBar">
-            <ul style="list-style-type:none;">
-
-                <a class="socialIcons" href="https://github.com/brandontcozart" target="_blank">
-                    <ion-icon name="logo-github"></ion-icon>
-                </a>
-                <br>
-                <br>
-                <a class="socialIcons" href="https://www.linkedin.com/in/brandon-cozart-b6b8561a1/" target="_blank">
-                    <ion-icon name="logo-linkedin"></ion-icon>
-                </a>
-                <br>
-                <br>
-                <a class="socialIcons" href="https://www.instagram.com/code.zart/" target="_blank">
-                    <ion-icon name="logo-instagram"></ion-icon>
-                </a>
-                <br>
-                <br>
-                <a class="socialIcons" href="https://www.instagram.com/d0nt100k/" target="_blank">
-                    <ion-icon name="image-outline"></ion-icon>
-                </a>
-                <br>
-                <br>
-                <a class="socialIcons" href="https://play.google.com/store/apps/developer?id=IParadigm" target="_blank">
-                    <ion-icon name="logo-apple-appstore"></ion-icon>
-                </a>
-            </ul>
-
-        </div>
-    </nav>
-
-    <p class="contact">Brandon.cozart2000@gmail.com - (919)685-2419</p>
-</body>
-
-<script src="script.js" charset="utf-8"></script>
-
-
-    <!--This is for the icons-->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      /**
+       * Print metadata for first 10 files.
+       */
+      async function listFiles() {
+        let response;
+        try {
+          response = await gapi.client.drive.files.list({
+            'pageSize': 10,
+            'fields': 'files(id, name)',
+          });
+        } catch (err) {
+          document.getElementById('content').innerText = err.message;
+          return;
+        }
+        const files = response.result.files;
+        if (!files || files.length == 0) {
+          document.getElementById('content').innerText = 'No files found.';
+          return;
+        }
+        // Flatten to string to display
+        const output = files.reduce(
+            (str, file) => `${str}${file.name} (${file.id})\n`,
+            'Files:\n');
+        document.getElementById('content').innerText = output;
+      }
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+  </body>
+</html>
